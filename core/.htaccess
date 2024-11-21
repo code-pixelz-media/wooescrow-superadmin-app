@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteBase /core/
+
+# Route all requests with /api/ to api.php with path info
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^api/(.*)$ api.php?path=$1 [QSA,L]

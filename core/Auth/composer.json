@@ -1,0 +1,9 @@
+{
+
+    "require": {
+        "ext-mysqli": "*",
+      "ext-pdo": "*",
+        "firebase/php-jwt": "^6.8",
+      "ext-openssl": "*"
+    }
+}
