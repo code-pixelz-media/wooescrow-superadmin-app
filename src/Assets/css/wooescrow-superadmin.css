@@ -1,0 +1,32 @@
+.wooescrow-superadmin-sidebar {
+  width: 270px;
+  background-color: #fff;
+  position: absolute;
+  -webkit-transition: 0.2s ease-in;
+  transition: 0.2s ease-in;
+  height: 100%;
+  /* z-index: 11; */
+  border-right: 1px solid rgb(229, 234, 239);
+}
+.wooescrow-superadmin-sidebar object {
+  height: 100%;
+}
+#wooescrow-superadmin-footer object {
+  width: 100%;
+}
+
+/* -----------------------------------
+          USERS 
+--------------------------------------*/
+
+.wooescrow-username-check label,
+.wooescrow-table-nav label {
+  display: none;
+}
+.bg-inactive {
+  background-color: #dc3545;
+  border: 1px solid #dc3545;
+}
+.text-red {
+  color: #dc3545;
+}
