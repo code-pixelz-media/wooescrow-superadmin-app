@@ -97,7 +97,7 @@ switch ($relativeUriArrayMethod) {
                         $license_status = $license['license_status'];
                         if (isset($license_key_id) && !empty($license_key_id)) {
                             if ($license_status == 'active') {
-                                $result = $licenseController->deactivateLicense($license_key_id);
+                                $result = $licenseController->deactivateLicense($license_key_id,$site_url);
                                 if ($result) {
                                     respond('success', ['message' => 'License key deactivated successfully'], 200);
                                 } else {
@@ -133,19 +133,19 @@ switch ($relativeUriArrayMethod) {
             } else if (isset($relativeUriArray[2]) && $relativeUriArray[2] === 'all') {
                 $licenses = $licenseController->fetchAllLicenseKeys();
                 respond('success', $licenses);
-            }else if(isset($relativeUriArray[2]) && $relativeUriArray[2] === 'activeSites'){
+            } else if (isset($relativeUriArray[2]) && $relativeUriArray[2] === 'activeSites') {
                 $activeSites = $licenseController->fetchAllActiveSites();
-                if(!empty($activeSites)){
+                if (!empty($activeSites)) {
                     respond('success', $activeSites);
-                }else{
-                    respond('error', ['message' => 'No data found'], 400);
+                } else {
+                    respond('error', ['message' => 'No data found'], 404);
                 }
-            }else if(isset($relativeUriArray[2]) && $relativeUriArray[2] === 'deactiveSites'){
+            } else if (isset($relativeUriArray[2]) && $relativeUriArray[2] === 'deactiveSites') {
                 $deactiveSites = $licenseController->fetchAllADeactiveSites();
-                if(!empty($deactiveSites)){
+                if (!empty($deactiveSites)) {
                     respond('success', $deactiveSites);
-                }else{
-                    respond('error', ['message' => 'No data found'], 400);
+                } else {
+                    respond('error', ['message' => 'No data found'], 404);
                 }
             } else {
                 $message = [];
@@ -158,17 +158,21 @@ switch ($relativeUriArrayMethod) {
         break;
     case 'PUT':
         if ($relativeUriArray[1] === 'licenses' && isset($relativeUriArray[1])) {
-            $id = (int) $relativeUriArray[2];
-            $data = json_decode(file_get_contents('php://input'), true);
-            if ($data) {
-                $result = $licenseController->updateLicenseKey($id, $data);
-                if ($result) {
-                    respond('success', ['message' => 'License key updated successfully'], 200);
+            if ($relativeUriArray[2] === 'update' && isset($relativeUriArray[2])) {
+                $id = (int) $relativeUriArray[3];
+                $data = json_decode(file_get_contents('php://input'), true);
+                if ($data) {
+                    $result = $licenseController->updateLicenseKey($id, $data);
+                    if (!is_string($result)) {
+                        respond('success', ['message' => 'License key updated successfully'], 200);
+                    } else {
+                        respond('error', ['message' => $result], 500);
+                    }
                 } else {
-                    respond('error', ['message' => 'Failed to update license key'], 500);
+                    respond('error', ['message' => 'Invalid data'], 400);
                 }
             } else {
-                respond('error', ['message' => 'Invalid data'], 400);
+                respond('error', ['message' => 'Invalid request'], 400);
             }
         } else {
             respond('error', ['message' => 'Invalid endpoint'], 404);
@@ -176,13 +180,17 @@ switch ($relativeUriArrayMethod) {
         break;
     case 'DELETE':
         if ($relativeUriArray[1] === 'licenses' && isset($relativeUriArray[1])) {
-            $id = $relativeUriArray[2];
+            if ($relativeUriArray[2] === 'delete' && isset($relativeUriArray[2])) {
+                $id = $relativeUriArray[3];
 
-            $result = $licenseController->deleteLicenseKey($id);
-            if ($result) {
-                respond('success', ['message' => 'License key deleted successfully'], 200);
+                $result = $licenseController->deleteLicenseKey($id);
+                if (!is_string($result)) {
+                    respond('success', ['message' => 'License key deleted successfully'], 200);
+                } else {
+                    respond('error', ['message' => $result], 404);
+                }
             } else {
-                respond('error', ['message' => 'Failed to delete license key.Cannot find license on database'], 500);
+                respond('error', ['message' => 'Invalid request'], 400);
             }
         }
 
