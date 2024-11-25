@@ -9,6 +9,7 @@ import Logout from './components/Authenticate/Logout';
 import ProtectedRoute from './components/Libs/ProtectedRoute';
 import NotFound from './components/Libs/NotFound';
 import Sites from './components/Dashboard/Contents/Sites';
+import Test from './components/Dashboard/Contents/Test';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         />
         <Route path="/logout" element={<Logout />} />
         <Route path="/sites" element={<Sites />} />
+        <Route path="/test" element={<Test/>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>

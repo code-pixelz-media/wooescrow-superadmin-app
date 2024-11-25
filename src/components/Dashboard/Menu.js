@@ -93,6 +93,18 @@ const Menu = () => {
                                 <span className="hide-menu">Transactions</span>
                             </Link>
                         </li>
+                        <li className="sidebar-item">
+                            <Link
+                                className="sidebar-link"
+                                to="/test"
+                                aria-expanded="false"
+                            >
+                                <span>
+                                  <IconAlertCircle />
+                                </span>
+                                <span className="hide-menu">Test</span>
+                            </Link>
+                        </li>
 
                         <li className="sidebar-item">
                             <a

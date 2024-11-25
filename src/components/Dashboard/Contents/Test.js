@@ -1,16 +1,13 @@
 import React from 'react';
 
 
-const Sites = () => {
+const Test = () => {
 
     return (
     
-        <div className='Sites'>
+        <div className='test'>
             Test Test
         </div>
     )
-
 }
-
-
-export default Sites;
+export default Test;

@@ -4,9 +4,8 @@ require 'DatabaseController.php';
 
 header('Content-Type: application/json');
 
-$dbConnection = new PDO('mysql:host=localhost;dbname=sql_superadmin_w', 'sql_superadmin_w', '9143be6cc92fb');
+$dbConnection = new PDO('mysql:host=localhost;dbname=wooescrow_superadmin', 'root', 'root');
 $licenseController = new DatabaseController($dbConnection);
-
 $method = $_SERVER['REQUEST_METHOD'];
 $request = isset($_GET['path']) ? explode('/', trim($_GET['path'], '/')) : [];
 
